@@ -1,0 +1,60 @@
+@baseUrl = http://localhost:8080/api/v1
+
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+    "email": "<EMAIL1>",
+    "password": "<PASSWORD1>"
+}
+
+###
+
+POST {{baseUrl}}/advertisement
+Content-Type: application/json
+
+{
+    "header": "Заметка",
+    "description": "Важная"
+}
+
+###
+
+POST {{baseUrl}}/advertisement
+Content-Type: application/json
+
+{
+    "header": "Заметочка",
+    "description": "Крайне важная"
+}
+
+###
+
+DELETE {{baseUrl}}/advertisement/1
+Content-Type: application/json
+
+###
+
+PATCH {{baseUrl}}/advertisement/2
+Content-Type: application/json
+
+{
+    "description": "Ну очень важная"
+}
+
+###
+
+GET {{baseUrl}}/advertisement/2
+Content-Type: application/json
+
+###
+
+POST {{baseUrl}}/login/
+Content-Type: application/json
+
+{
+    "email": "<EMAIL2>",
+    "password": "<PASSWORD2>"
+}
+
+###

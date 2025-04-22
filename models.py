@@ -55,7 +55,7 @@ class Advertisement(Base):
     header: Mapped[str] = mapped_column(String, nullable=False)
     description: Mapped[str] = mapped_column(String)
     created_at: Mapped[datetime] = mapped_column(DateTime, server_default=func.now())
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("user.id"))
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"))
 
     @property
     def dict(self):
@@ -76,7 +76,14 @@ class Advertisement(Base):
 
 async def init_orm():
     async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
+
+        stmt = insert(User).values({'email': '<EMAIL1>', 'password': hash_password('<PASSWORD1>')})
+        await conn.execute(stmt)
+        stmt = insert(User).values({'email': '<EMAIL2>', 'password': hash_password('<PASSWORD2>')})
+        await conn.execute(stmt)
+        await conn.commit()
 
 
 async def close_orm():

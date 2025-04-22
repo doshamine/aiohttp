@@ -49,7 +49,7 @@ Content-Type: application/json
 
 ###
 
-POST {{baseUrl}}/login/
+POST {{baseUrl}}/login
 Content-Type: application/json
 
 {

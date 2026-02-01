@@ -1,15 +1,20 @@
 networks:
-  backend:
+  default:
 
 services:
-  postgres:
+  db:
     image: postgres:latest
-    ports:
-      - "5431:5432"
+    expose:
+      - "5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+      start_period: 5s
+      start_interval: 1s
+      interval: 5s
+      timeout: 5s
+      retries: 3
     networks:
-      - backend
-    volumes:
-      - .:/docker-entrypoint-initdb.d
+      - default
     env_file:
       - db.env
 
@@ -18,6 +23,9 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - backend
+      - default
     depends_on:
-      - postgres
+      db:
+        condition: "service_healthy"
+    stdin_open: true
+    tty: true

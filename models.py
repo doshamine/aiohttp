@@ -1,18 +1,14 @@
-import atexit
 import os
 from datetime import datetime
-
-from sqlalchemy import create_engine, Integer, String, DateTime, func, ForeignKey, insert
+from sqlalchemy import Integer, String, DateTime, func, ForeignKey, insert
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncAttrs
-from sqlalchemy.orm import sessionmaker, DeclarativeBase, Mapped, mapped_column, foreign
-from flask_login import UserMixin
-
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from auth import hash_password
 
 POSTGRES_USER = os.getenv("POSTGRES_USER", "postgres")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "123")
-POSTGRES_HOST = os.getenv("POSTGRES_HOST", "127.0.0.1")
-POSTGRES_PORT = os.getenv("POSTGRES_PORT", "5431")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "***")
+POSTGRES_HOST = os.getenv("POSTGRES_HOST", "db")
+POSTGRES_PORT = os.getenv("POSTGRES_PORT", "5432")
 POSTGRES_DB = os.getenv("POSTGRES_DB", "netology_advertisements")
 
 PG_DSN = (
@@ -28,7 +24,7 @@ Session = async_sessionmaker(bind=engine, expire_on_commit=False)
 class Base(DeclarativeBase, AsyncAttrs):
     pass
 
-class User(UserMixin, Base):
+class User(Base):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String, nullable=False, unique=True)

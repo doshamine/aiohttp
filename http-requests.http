@@ -1,6 +1,6 @@
 @baseUrl = http://localhost:8080/api/v1
 
-POST {{baseUrl}}/login
+POST {{baseUrl}}/login/
 Content-Type: application/json
 
 {
@@ -10,7 +10,11 @@ Content-Type: application/json
 
 ###
 
-POST {{baseUrl}}/advertisement
+POST {{baseUrl}}/logout/
+
+###
+
+POST {{baseUrl}}/advertisement/
 Content-Type: application/json
 
 {
@@ -20,7 +24,7 @@ Content-Type: application/json
 
 ###
 
-POST {{baseUrl}}/advertisement
+POST {{baseUrl}}/advertisement/
 Content-Type: application/json
 
 {
@@ -45,11 +49,10 @@ Content-Type: application/json
 ###
 
 GET {{baseUrl}}/advertisement/2
-Content-Type: application/json
 
 ###
 
-POST {{baseUrl}}/login
+POST {{baseUrl}}/login/
 Content-Type: application/json
 
 {
